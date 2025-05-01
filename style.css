@@ -289,6 +289,21 @@ nav ul li a:hover {
   margin-right: 10px;
 }
 
+.timestamp-link {
+  color: var(--tertiary-color);
+  font-weight: bold;
+  margin-right: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: var(--transition);
+}
+
+.timestamp-link:hover {
+  color: var(--secondary-color);
+  transform: scale(1.05);
+}
+
 /* Resources Section */
 .resources {
   padding: 80px 0;

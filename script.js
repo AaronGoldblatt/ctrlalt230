@@ -1,6 +1,66 @@
 // Ctrl+Alt+230 Podcast Website JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Load YouTube API
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // YouTube players object
+    var players = {};
+
+    // Initialize players when API is ready
+    window.onYouTubeIframeAPIReady = function() {
+        // Get all YouTube iframes
+        const videoIframes = document.querySelectorAll('iframe[id^="video-"]');
+        
+        // Initialize each player
+        videoIframes.forEach(function(iframe) {
+            players[iframe.id] = new YT.Player(iframe.id, {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        });
+    };
+
+    // Once player is ready
+    function onPlayerReady(event) {
+        // Player is ready
+        console.log("Player ready:", event.target);
+    }
+
+    // Handle timestamp clicks
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('timestamp-link') || e.target.parentElement.classList.contains('timestamp-link')) {
+            e.preventDefault();
+            
+            // Get the link element
+            const link = e.target.classList.contains('timestamp-link') ? e.target : e.target.parentElement;
+            
+            // Get video ID and time
+            const videoId = link.getAttribute('data-video');
+            const time = parseInt(link.getAttribute('data-time'));
+            
+            // If we have a player for this video
+            if (players[videoId]) {
+                // Seek to time
+                players[videoId].seekTo(time, true);
+                // Start playing
+                players[videoId].playVideo();
+                
+                // Scroll to video if needed
+                const videoElement = document.getElementById(videoId);
+                const rect = videoElement.getBoundingClientRect();
+                
+                if (rect.top < 0 || rect.bottom > window.innerHeight) {
+                    videoElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+    });
+
     // Tab system functionality
     const tabButtons = document.querySelectorAll('.tab-btn');
     
@@ -42,6 +102,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     anchorLinks.forEach(link => {
         link.addEventListener('click', function(e) {
+            // Don't interfere with timestamp links
+            if (link.classList.contains('timestamp-link')) {
+                return;
+            }
+            
             e.preventDefault();
             
             const targetId = this.getAttribute('href');
