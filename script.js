@@ -37,6 +37,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Resource cards navigation
+    const resourceCategories = document.querySelector('.resource-categories');
+    const prevArrow = document.querySelector('.prev-arrow');
+    const nextArrow = document.querySelector('.next-arrow');
+    
+    if (resourceCategories && prevArrow && nextArrow) {
+        const cardWidth = 310; // card width + gap
+        let currentPosition = 0;
+        let maxPosition = 0;
+        
+        // Calculate the maximum scroll position
+        const calculateMaxPosition = () => {
+            const containerWidth = resourceCategories.parentElement.offsetWidth;
+            const totalWidth = resourceCategories.scrollWidth;
+            maxPosition = Math.max(0, totalWidth - containerWidth);
+        };
+        
+        // Initial calculation
+        calculateMaxPosition();
+        
+        // Update on window resize
+        window.addEventListener('resize', calculateMaxPosition);
+        
+        // Previous button click
+        prevArrow.addEventListener('click', () => {
+            currentPosition = Math.max(0, currentPosition - cardWidth);
+            resourceCategories.style.transform = `translateX(-${currentPosition}px)`;
+            updateArrowStates();
+        });
+        
+        // Next button click
+        nextArrow.addEventListener('click', () => {
+            currentPosition = Math.min(maxPosition, currentPosition + cardWidth);
+            resourceCategories.style.transform = `translateX(-${currentPosition}px)`;
+            updateArrowStates();
+        });
+        
+        // Update arrow states based on position
+        const updateArrowStates = () => {
+            prevArrow.disabled = currentPosition === 0;
+            nextArrow.disabled = currentPosition >= maxPosition;
+            
+            prevArrow.style.opacity = prevArrow.disabled ? '0.5' : '1';
+            nextArrow.style.opacity = nextArrow.disabled ? '0.5' : '1';
+        };
+        
+        // Initial arrow states
+        updateArrowStates();
+    }
+    
     // Smooth scrolling for anchor links
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     
