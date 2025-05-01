@@ -68,6 +68,7 @@ header .container {
 .logo {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .logo-image {
@@ -78,22 +79,107 @@ header .container {
   object-fit: cover;
   border: 2px solid var(--light-color);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              filter 0.4s ease,
+              border-color 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); }
+  50% { box-shadow: 0 8px 20px rgba(52, 152, 219, 0.5); }
+  100% { box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); }
+}
+
+@keyframes wave-pulse {
+  0% { 
+    transform: scale(1);
+    opacity: 0.8;
+    border-color: var(--tertiary-color);
+  }
+  70% {
+    opacity: 0.2;
+    border-color: rgba(52, 152, 219, 0.3);
+  }
+  100% { 
+    transform: scale(1.8);
+    opacity: 0;
+    border-color: rgba(52, 152, 219, 0);
+  }
+}
+
+.logo::before,
+.logo::after,
+.logo .wave-3 {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 90px;
+  height: 90px;
+  border-radius: 4px;
+  background: transparent;
+  border: 2px solid var(--tertiary-color);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.logo .wave-3 {
+  display: none;
+}
+
+.logo:hover::before {
+  animation: wave-pulse 2s infinite ease-out;
+}
+
+.logo:hover::after {
+  animation: wave-pulse 2s infinite 0.6s ease-out;
+}
+
+.logo:hover .wave-3 {
+  display: block;
+  animation: wave-pulse 2s infinite 1.2s ease-out;
+}
+
+.logo:hover .logo-image {
+  transform: scale(1.15);
+  filter: brightness(1.1);
+  animation: pulse-glow 1.5s infinite;
+  border-color: var(--tertiary-color);
 }
 
 .logo-text {
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-text {
+  transform: translateX(10px);
 }
 
 .logo h1 {
   font-size: 2rem;
   letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.logo:hover h1 {
+  color: var(--tertiary-color);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
 .tagline {
   font-style: italic;
   opacity: 0.9;
   font-size: 0.9rem;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover .tagline {
+  opacity: 1;
 }
 
 nav ul {
