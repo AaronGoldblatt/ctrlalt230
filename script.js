@@ -29,16 +29,22 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollContainers.forEach(container => {
             const scrollableContent = container.querySelector('.scrollable-links');
             
-            if (scrollableContent && scrollableContent.scrollHeight > scrollableContent.clientHeight) {
-                container.classList.add('has-scroll');
-            } else {
-                container.classList.remove('has-scroll');
+            if (scrollableContent) {
+                // Only add scroll class if the content is significantly taller than the container (10px threshold)
+                // This prevents false positives due to rounding errors or tiny overflow
+                const hasSignificantScroll = scrollableContent.scrollHeight > (scrollableContent.clientHeight + 10);
+                
+                if (hasSignificantScroll) {
+                    container.classList.add('has-scroll');
+                } else {
+                    container.classList.remove('has-scroll');
+                }
             }
         });
     }
     
-    // Run on page load
-    updateScrollIndicators();
+    // Run on page load after a slight delay to ensure all content is rendered
+    setTimeout(updateScrollIndicators, 100);
     
     // Run on window resize
     window.addEventListener('resize', updateScrollIndicators);
