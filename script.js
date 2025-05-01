@@ -1,6 +1,18 @@
 // Ctrl+Alt+230 Podcast Website JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Logo "back to top" functionality
+    const logoLink = document.querySelector('.logo-link');
+    if (logoLink) {
+        logoLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
     // Load YouTube API
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
