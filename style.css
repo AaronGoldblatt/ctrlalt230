@@ -370,7 +370,7 @@ nav ul li a:hover {
   padding-bottom: 15px;
 }
 
-.scrollable-links::after {
+.scrollable-links.has-scroll::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -383,6 +383,20 @@ nav ul li a:hover {
 
 .scrollable-links.scroll-active::before {
   content: '⟱ scroll for more';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--tertiary-color);
+  background-color: rgba(249, 249, 249, 0.7);
+  padding: 2px 0;
+  z-index: 1;
+}
+
+.scrollable-links.scroll-end::before {
+  content: '⟰ back to top';
   position: absolute;
   bottom: 0;
   left: 0;

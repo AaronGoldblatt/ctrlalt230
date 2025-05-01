@@ -247,13 +247,63 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrollableContainers = document.querySelectorAll('.scrollable-links');
         
         scrollableContainers.forEach(container => {
+            // Check if content is scrollable
             if (container.scrollHeight > container.clientHeight) {
-                container.classList.add('scroll-active');
+                container.classList.add('has-scroll');
+                
+                // Update scroll state based on scroll position
+                updateScrollState(container);
+                
+                // Add scroll event listener if not already added
+                if (!container.hasScrollListener) {
+                    container.addEventListener('scroll', function() {
+                        updateScrollState(this);
+                    });
+                    container.hasScrollListener = true;
+                }
             } else {
+                container.classList.remove('has-scroll');
                 container.classList.remove('scroll-active');
+                container.classList.remove('scroll-end');
             }
         });
     };
+    
+    // Update scroll state indicator based on scroll position
+    const updateScrollState = function(container) {
+        // At the top
+        if (container.scrollTop === 0) {
+            container.classList.add('scroll-active');
+            container.classList.remove('scroll-end');
+        }
+        // At the bottom
+        else if (container.scrollHeight - container.scrollTop <= container.clientHeight + 5) {
+            container.classList.remove('scroll-active');
+            container.classList.add('scroll-end');
+        }
+        // In the middle
+        else {
+            container.classList.remove('scroll-active');
+            container.classList.remove('scroll-end');
+        }
+    };
+
+    // Add click handler for "back to top" indicators
+    document.addEventListener('click', function(e) {
+        // Check if click is on or within a scrollable container
+        const container = e.target.closest('.scrollable-links');
+        if (container && container.classList.contains('scroll-end')) {
+            // Only scroll to top if clicking the bottom area where the indicator is
+            const rect = container.getBoundingClientRect();
+            const clickY = e.clientY - rect.top;
+            
+            // If click is in the bottom 30px of the container
+            if (clickY > container.clientHeight - 30) {
+                container.scrollTop = 0;
+                updateScrollState(container);
+            }
+        }
+    });
     
     // Initial check
     checkScrollableContainers();
