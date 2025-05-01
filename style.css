@@ -428,12 +428,13 @@ nav ul li a:hover {
 
 .resource-category {
   background-color: #f9f9f9;
-  padding: 20px;
+  padding: 20px 25px 20px 20px;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   transition: var(--transition);
   height: 100%;
   width: 100%;
+  position: relative;
 }
 
 .resource-category:hover {
@@ -449,26 +450,35 @@ nav ul li a:hover {
 
 .scrollable-links {
   max-height: 200px;
-  overflow-y: auto;
+  overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: var(--tertiary-color) #f0f0f0;
-  padding-right: 10px;
+  padding-right: 20px;
+  /* Firefox specific scrollbar styles */
+  scrollbar-width: thin;
+  scrollbar-color: var(--tertiary-color) #f0f0f0;
+  /* Internet Explorer */
+  -ms-overflow-style: scrollbar;
 }
 
+/* For Webkit browsers (Chrome, Safari) */
 .scrollable-links::-webkit-scrollbar {
   width: 8px;
   display: block;
+  background-color: #f0f0f0;
 }
 
 .scrollable-links::-webkit-scrollbar-track {
   background: #f0f0f0;
   border-radius: 10px;
+  margin-right: 5px;
 }
 
 .scrollable-links::-webkit-scrollbar-thumb {
   background-color: var(--tertiary-color);
   border-radius: 10px;
   border: 2px solid #f0f0f0;
+  min-height: 40px; /* Ensures the thumb is always visible */
 }
 
 .scrollable-links::-webkit-scrollbar-thumb:hover {
@@ -477,6 +487,7 @@ nav ul li a:hover {
 
 .resource-links li {
   margin-bottom: 10px;
+  padding-right: 10px;
 }
 
 .resource-links li a {
