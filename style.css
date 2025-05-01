@@ -328,17 +328,10 @@ nav ul li a:hover {
 }
 
 .resource-categories-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
   margin-bottom: 50px;
-}
-
-.resource-categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
 }
 
 .resource-category {
@@ -347,8 +340,7 @@ nav ul li a:hover {
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   transition: var(--transition);
-  width: 280px;
-  flex: 0 0 auto;
+  height: 100%;
 }
 
 .resource-category:hover {
