@@ -460,8 +460,8 @@ nav ul li a:hover {
   flex-direction: column;
 }
 
-/* Add a subtle scrollbar indicator */
-.resource-category::after {
+/* Add a subtle scrollbar indicator only to scrollable content */
+.resource-category.has-scroll::after {
   content: '';
   position: absolute;
   top: 55px;

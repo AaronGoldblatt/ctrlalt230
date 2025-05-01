@@ -13,6 +13,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Check which containers need scrollbars and add indicator
+    function updateScrollIndicators() {
+        const scrollContainers = document.querySelectorAll('.resource-category');
+        
+        scrollContainers.forEach(container => {
+            const scrollableContent = container.querySelector('.scrollable-links');
+            
+            if (scrollableContent && scrollableContent.scrollHeight > scrollableContent.clientHeight) {
+                container.classList.add('has-scroll');
+            } else {
+                container.classList.remove('has-scroll');
+            }
+        });
+    }
+    
+    // Run on page load
+    updateScrollIndicators();
+    
+    // Run on window resize
+    window.addEventListener('resize', updateScrollIndicators);
+
     // Load YouTube API
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
@@ -106,6 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (targetPane) {
                 targetPane.classList.add('active');
             }
+            
+            // Update scroll indicators after tab content changes
+            setTimeout(updateScrollIndicators, 50);
         });
     });
     
