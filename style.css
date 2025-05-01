@@ -312,25 +312,18 @@ nav ul li a:hover {
   margin: 10px auto 0;
 }
 
-.resources-navigation {
+.resource-categories-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  flex-direction: column;
+  gap: 30px;
   margin-bottom: 50px;
-}
-
-.resource-categories-container {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
 }
 
 .resource-categories {
   display: flex;
+  flex-wrap: wrap;
   gap: 30px;
-  transition: transform 0.5s ease;
-  flex-wrap: nowrap;
+  justify-content: center;
 }
 
 .resource-category {
@@ -339,8 +332,7 @@ nav ul li a:hover {
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   transition: var(--transition);
-  min-width: 280px;
-  max-width: 280px;
+  width: 280px;
   flex: 0 0 auto;
 }
 
@@ -389,35 +381,6 @@ nav ul li a:hover {
 .resource-links li a i {
   font-size: 0.8rem;
   opacity: 0.7;
-}
-
-.nav-arrow {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  position: absolute;
-  transition: var(--transition);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.nav-arrow:hover {
-  background-color: var(--secondary-color);
-}
-
-.prev-arrow {
-  left: 0;
-}
-
-.next-arrow {
-  right: 0;
 }
 
 .listen-platforms {
