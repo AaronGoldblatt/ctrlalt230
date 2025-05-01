@@ -597,4 +597,31 @@ footer {
   .team-members {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Interview Questions Styling */
+.interview-section {
+  margin-bottom: 30px;
+}
+
+.interview-section h4 {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--tertiary-color);
+}
+
+.interview-questions li {
+  margin-bottom: 15px;
+  padding-left: 25px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.interview-questions li:before {
+  content: '❓';
+  position: absolute;
+  left: 0;
+  color: var(--tertiary-color);
 } 
