@@ -196,11 +196,12 @@ header .container {
   font-style: italic;
   opacity: 0.9;
   font-size: 0.9rem;
-  transition: opacity 0.3s ease;
+  transition: color 0.3s ease, opacity 0.3s ease;
 }
 
 .logo:hover .tagline {
   opacity: 1;
+  color: var(--tertiary-color);
 }
 
 nav ul {

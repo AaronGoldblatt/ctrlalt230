@@ -10,6 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 top: 0,
                 behavior: 'smooth'
             });
+            
+            // Focus on the body to ensure the browser registers the scroll
+            document.body.focus();
+            
+            // Add fallback for older browsers
+            if (typeof window.scrollTo !== 'function') {
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0; // For Safari
+            }
         });
     }
 
