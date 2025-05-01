@@ -241,4 +241,30 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add dynamic styles
     addDynamicStyles();
+    
+    // Check for scrollable content
+    const checkScrollableContainers = function() {
+        const scrollableContainers = document.querySelectorAll('.scrollable-links');
+        
+        scrollableContainers.forEach(container => {
+            if (container.scrollHeight > container.clientHeight) {
+                container.classList.add('scroll-active');
+            } else {
+                container.classList.remove('scroll-active');
+            }
+        });
+    };
+    
+    // Initial check
+    checkScrollableContainers();
+    
+    // Recheck on window resize
+    window.addEventListener('resize', checkScrollableContainers);
+    
+    // Recheck when tabs are clicked (content might change)
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            setTimeout(checkScrollableContainers, 50);
+        });
+    });
 }); 
